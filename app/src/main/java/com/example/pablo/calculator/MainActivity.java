@@ -1,9 +1,11 @@
 package com.example.pablo.calculator;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,11 +35,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView textResultado;
 
+
+    Button btnPi;
+    Button btnEx3;
+    Button btnSen;
+    Button btnCos;
+    Button btnTan;
+    Button btnSenh;
+    Button btnCosh;
+    Button btnTanh;
+    Button btnE;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_main);
+        }else{
+            setContentView(R.layout.activity_main_landscape);
+            botonesLanscape();
+        }
 
+        getVistas();
+
+
+    }
+
+    private void botonesLanscape() {
+        btnPi = (Button) findViewById(R.id.btnPi);
+        btnEx3 = (Button) findViewById(R.id.btnEx3);
+        btnSen = (Button) findViewById(R.id.btnSen);
+        btnCos = (Button) findViewById(R.id.btnCos);
+        btnTan = (Button) findViewById(R.id.btnTan);
+        btnSenh = (Button) findViewById(R.id.btnSenh);
+        btnCosh = (Button) findViewById(R.id.btnCosh);
+        btnTanh = (Button) findViewById(R.id.btnTanh);
+        btnE = (Button) findViewById(R.id.btnE);
+
+        btnPi.setOnClickListener(this);
+        btnEx3.setOnClickListener(this);
+        btnSen.setOnClickListener(this);
+        btnCos.setOnClickListener(this);
+        btnTan.setOnClickListener(this);
+        btnSenh.setOnClickListener(this);
+        btnCosh.setOnClickListener(this);
+        btnTanh.setOnClickListener(this);
+        btnE.setOnClickListener(this);
+
+    }
+
+    private void getVistas() {
         btn0 = (Button) findViewById(R.id.btn0);
         btn1 = (Button) findViewById(R.id.btn1);
         btn2 = (Button) findViewById(R.id.btn2);
@@ -62,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPunto = (Button) findViewById(R.id.btnPunto);
 
         textResultado = (TextView) findViewById(R.id.textResultado);
+        textResultado.setText("0");
 
 
         btn0.setOnClickListener(this);
@@ -88,8 +137,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPunto.setOnClickListener(this);
 
         textResultado.setOnClickListener(this);
-
-
     }
 
 
@@ -104,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param num
      */
     public void mostrarNumero(String num){
-        if(fg ==1){
+       if(fg ==1){
             textResultado.setText("");
             fg =0;
         }else if(textResultado.getText()=="0"){
@@ -232,6 +279,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(v.getId()==R.id.btnMasMenos){
             Double nuevoNumero = Double.parseDouble(textResultado.getText().toString());
             total=nuevoNumero*(-1);
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnEx3) {
+            Double nuevoNumero = Double.parseDouble(textResultado.getText().toString());
+            total = Math.pow(nuevoNumero, 3);
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnSen){
+            Double nuevoNumero = Double.parseDouble(textResultado.getText().toString());
+            total = Math.sin(Math.toRadians(nuevoNumero));
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnCos){
+            Double nuevoNumero = Double.parseDouble(textResultado.getText().toString());
+            total = Math.cos(Math.toRadians(nuevoNumero));
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnTan){
+            Double nuevoNumero = Double.parseDouble(textResultado.getText().toString());
+            total = Math.tan(Math.toRadians(nuevoNumero));
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnSenh){
+            Double nuevoNumero = Double.parseDouble(textResultado.getText().toString());
+            total = Math.sinh(Math.toRadians(nuevoNumero));
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnCosh){
+            Double nuevoNumero = Double.parseDouble(textResultado.getText().toString());
+            total = Math.cosh(Math.toRadians(nuevoNumero));
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnTanh){
+            Double nuevoNumero = Double.parseDouble(textResultado.getText().toString());
+            total = Math.tanh(Math.toRadians(nuevoNumero));
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnE){
+            total = Math.E;
+            textResultado.setText(total.toString());
+        }else if(v.getId()==R.id.btnPi){
+            total = Math.PI;
             textResultado.setText(total.toString());
         }
         ultimoBoton= v.getId();
